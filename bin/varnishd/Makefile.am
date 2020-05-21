@@ -81,7 +81,6 @@ varnishd_SOURCES = \
 	mgt/mgt_jail.c \
 	mgt/mgt_jail_solaris.c \
 	mgt/mgt_jail_unix.c \
-	mgt/mgt_jail_linux.c \
 	mgt/mgt_main.c \
 	mgt/mgt_param.c \
 	mgt/mgt_param_bits.c \
@@ -117,6 +116,10 @@ varnishd_SOURCES += \
 	storage/storage_persistent.c \
 	storage/storage_persistent_silo.c \
 	storage/storage_persistent_subr.c
+endif
+
+if WITH_LINUX_JAIL
+varnishd_SOURCES +=	mgt/mgt_jail_linux.c
 endif
 
 nodist_varnishd_SOURCES = \
@@ -175,6 +178,7 @@ varnishd_LDADD = \
 	$(top_builddir)/lib/libvgz/libvgz.a \
 	@SAN_LDFLAGS@ \
 	@JEMALLOC_LDADD@ \
+	@SECCOMP_LDADD@ \
 	@PCRE_LIBS@ \
 	${DL_LIBS} ${PTHREAD_LIBS} ${NET_LIBS} ${RT_LIBS} ${LIBM}
 

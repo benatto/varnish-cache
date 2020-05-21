@@ -39,7 +39,6 @@
 
 
 #include "config.h"
-#ifdef __linux__
 
 #include "mgt/mgt.h"
 #include "common/heritage.h"
@@ -471,4 +470,3 @@ const struct jail_tech jail_tech_linux = {
 	.fixfd =	vjl_fixfd,
 	.make_subdir = vjl_make_subdir,
 };
-#endif
