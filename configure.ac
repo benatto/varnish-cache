@@ -382,8 +382,6 @@ case $target in
 			AC_CHECK_LIB([seccomp], [seccomp_init],
 				  [SECCOMP_LDADD="-lseccomp"],
 				  [AC_MSG_WARN([No libseccomp found])])
-		else
-			AC_MSG_WARN([NO JAIL MOTHERFUCKER!])
 		fi
 		;;
 esac
