@@ -102,20 +102,32 @@ void mgt_cli_init_cls(void);
 
 /* mgt_jail.c */
 
-enum jail_subproc_e {
-	JAIL_SUBPROC_VCC,
-	JAIL_SUBPROC_CC,
-	JAIL_SUBPROC_VCLLOAD,
-	JAIL_SUBPROC_WORKER,
-};
-
 enum jail_master_e {
-	JAIL_MASTER_LOW,
+	JAIL_MASTER_LOW = 0,
 	JAIL_MASTER_FILE,
 	JAIL_MASTER_STORAGE,
 	JAIL_MASTER_PRIVPORT,
 	JAIL_MASTER_KILL,
 };
+
+#define ASSERT_JAIL_MASTER(x) do {		\
+	assert(x >= JAIL_MASTER_LOW);		\
+	assert(x <= JAIL_MASTER_KILL);		\
+	} while (0)
+
+enum jail_subproc_e {
+	JAIL_SUBPROC_VCC = JAIL_MASTER_KILL + 1,
+	JAIL_SUBPROC_CC,
+	JAIL_SUBPROC_VCLLOAD,
+	JAIL_SUBPROC_WORKER,
+};
+
+#define ASSERT_JAIL_SUBPROC(x) do {		\
+	assert(x >= JAIL_SUBPROC_VCC);		\
+	assert(x <= JAIL_SUBPROC_WORKER);	\
+	} while (0)
+
+#define JAIL_LIMIT (JAIL_SUBPROC_WORKER + 1)
 
 enum jail_fixfd_e {
 	JAIL_FIXFD_FILE,
@@ -147,6 +159,8 @@ void VJ_subproc(enum jail_subproc_e);
 int VJ_make_workdir(const char *);
 int VJ_make_subdir(const char *, const char *, struct vsb *);
 void VJ_fix_fd(int, enum jail_fixfd_e);
+void VJ_unlink(const char *);
+void VJ_rmdir(const char *);
 
 extern const struct jail_tech jail_tech_unix;
 extern const struct jail_tech jail_tech_solaris;

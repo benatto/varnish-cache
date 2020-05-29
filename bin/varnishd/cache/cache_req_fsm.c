@@ -29,7 +29,7 @@
  * SUCH DAMAGE.
  *
  * This file contains the request-handling state engine, which is intended to
- * (over time) be(ome) protocol agnostic.
+ * (over time) be(come) protocol agnostic.
  * We already use this now with ESI:includes, which are for all relevant
  * purposes a different "protocol"
  *
@@ -166,8 +166,7 @@ Resp_Setup_Synth(struct req *req)
 
 	http_TimeHeader(h, "Date: ", W_TIM_real(req->wrk));
 	http_SetHeader(h, "Server: Varnish");
-	http_PrintfHeader(h, "X-Varnish: %u",
-	    VXID(req->vsl->wid));
+	http_PrintfHeader(h, "X-Varnish: %u", VXID(req->vsl->wid));
 
 	/*
 	 * For late 100-continue, we suggest to VCL to close the connection to
